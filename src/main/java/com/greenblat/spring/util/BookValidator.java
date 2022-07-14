@@ -1,7 +1,7 @@
 package com.greenblat.spring.util;
 
-import com.greenblat.spring.dao.BookDAO;
 import com.greenblat.spring.models.Book;
+import com.greenblat.spring.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -12,11 +12,11 @@ import java.util.Optional;
 @Component
 public class BookValidator implements Validator {
 
-    private final BookDAO bookDAO;
+    private final BookService bookService;
 
     @Autowired
-    public BookValidator(BookDAO bookDAO) {
-        this.bookDAO = bookDAO;
+    public BookValidator(BookService bookService) {
+        this.bookService = bookService;
     }
 
     @Override
@@ -30,7 +30,7 @@ public class BookValidator implements Validator {
 
         // First letter of book's title should be upper case
         String title = validateBook.getTitle();
-        if (title.length() != 0 &&!Character.isUpperCase(title.codePointAt(0))) {
+        if (title.length() != 0 && !Character.isUpperCase(title.codePointAt(0))) {
             errors.rejectValue("title", "", "Название прозведения должно быть с большой буквы");
         }
 
@@ -41,7 +41,7 @@ public class BookValidator implements Validator {
         }
 
         // Title of then book and author name should be unique
-        Optional<Book> copyTitleBook = bookDAO.getTitleAndAuthorOfBook(validateBook.getTitle(), authorName);
+        Optional<Book> copyTitleBook = bookService.getTitleAndAuthorOfBook(validateBook.getTitle(), authorName);
         if (copyTitleBook.isPresent()) {
             errors.rejectValue("title", "", "Название книги и автора должно быть уникальным");
         }
