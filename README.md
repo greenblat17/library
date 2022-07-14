@@ -21,5 +21,8 @@ who took this book. If this book has not been taken by anyone, the text "This th
 "Release book". This button is pressed by the librarian when the reader
 returns this book back to the library. After pressing this button the book again
 becomes loose and disappears from the list of the person's books.
-
+8) Book pagination
+9) Sort books by year
+10) Added a page to search for books by title (it is not necessary to enter the full title of the book)
+11) Added automatic check that a person has overdue the return books.
 
